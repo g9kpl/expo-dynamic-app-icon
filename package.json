@@ -1,6 +1,6 @@
 {
-  "name": "@howincodes/expo-dynamic-app-icon",
-  "version": "2.0.3",
+  "name": "@elberfeld2/expo-dynamic-app-icon",
+  "version": "1.0.0",
   "description": "Programmatically change the app icon in Expo.",
   "main": "build/index.js",
   "types": "build/index.d.ts",
@@ -32,13 +32,17 @@
     "expo-dynamic-app-icon",
     "ExpoDynamicAppIcon"
   ],
-  "repository": "https://github.com/howincodes/expo-dynamic-app-icon",
+  "repository": "https://github.com/elberfeld2/expo-dynamic-app-icon",
   "bugs": {
-    "url": "https://github.com/howincodes/expo-dynamic-app-icon/issues"
+    "url": "https://github.com/elberfeld2/expo-dynamic-app-icon/issues"
   },
-  "author": "Faris Basha T M <bashahowin@gmail.com> (https://github.com/howincodes)",
+  "author": "Elberfeld2 <tu-email@ejemplo.com> (https://github.com/elberfeld2)",
+  "contributors": [
+    "Faris Basha T M <bashahowin@gmail.com> (https://github.com/howincodes)",
+    "outsung <outsung9@gmail.com> (https://github.com/outsung)"
+  ],
   "license": "MIT",
-  "homepage": "https://github.com/howincodes/expo-dynamic-app-icon#readme",
+  "homepage": "https://github.com/elberfeld2/expo-dynamic-app-icon#readme",
   "dependencies": {
     "expo-modules-core": "^2.1.1",
     "@expo/image-utils": "^0.6.3",
@@ -50,7 +54,7 @@
     "expo-module-scripts": "^4.0.2"
   },
   "peerDependencies": {
-    "expo": "^52",
+    "expo": "^52 || ^53",
     "react": "*",
     "react-native": "*"
   },

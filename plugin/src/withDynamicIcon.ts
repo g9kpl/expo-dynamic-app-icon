@@ -293,17 +293,28 @@ const withIconAndroidImages: ConfigPlugin<Props> = (config, { icons }) => {
               config.modRequest.projectRoot,
               androidConfig.foregroundImage
             );
+            
+            // Use a type-safe approach to handle the URI
+            let foregroundSrcPath: string;
+            if (foregroundImageSrc && typeof foregroundImageSrc === 'object' && 
+                'uri' in (foregroundImageSrc as any)) {
+              foregroundSrcPath = (foregroundImageSrc as any).uri;
+            } else {
+              foregroundSrcPath = String(foregroundImageSrc);
+            }
+            
             const foregroundImageDest = path.join(
               drawableDirPath,
               `${foregroundBaseName}.png`
             );
+            
             const { source: foregroundSource } = await generateImageAsync(
               {
                 projectRoot: config.modRequest.projectRoot,
                 cacheType: `expo-dynamic-app-icon-fg-${safeIconKey}`,
               },
               {
-                src: foregroundImageSrc,
+                src: foregroundSrcPath,
                 removeTransparency: false,
                 backgroundColor: "transparent", // Ensure transparency is kept
                 width: 432, // Standard dimension for foreground assets
@@ -341,6 +352,15 @@ const withIconAndroidImages: ConfigPlugin<Props> = (config, { icons }) => {
               );
               const safeIconKey = getSafeResourceName(iconConfigName); // Use the same safe name
 
+              // Use a type-safe approach to handle the URI
+              let iconSrcPath: string;
+              if (androidConfig && typeof androidConfig === 'object' && 
+                  'uri' in (androidConfig as any)) {
+                iconSrcPath = (androidConfig as any).uri;
+              } else {
+                iconSrcPath = String(androidConfig);
+              }
+
               // Square ones
               const fileNameSquare = `${safeIconKey}.png`;
               const { source: sourceSquare } = await generateImageAsync(
@@ -350,7 +370,7 @@ const withIconAndroidImages: ConfigPlugin<Props> = (config, { icons }) => {
                 },
                 {
                   name: fileNameSquare,
-                  src: androidConfig,
+                  src: iconSrcPath,
                   removeTransparency: true,
                   backgroundColor: "#ffffff",
                   resizeMode: "cover",
@@ -372,7 +392,7 @@ const withIconAndroidImages: ConfigPlugin<Props> = (config, { icons }) => {
                 },
                 {
                   name: fileNameRound,
-                  src: androidConfig,
+                  src: iconSrcPath,
                   removeTransparency: true,
                   backgroundColor: "#ffffff",
                   resizeMode: "cover",

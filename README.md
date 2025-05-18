@@ -1,12 +1,12 @@
-# 🎨 @howincodes/expo-dynamic-app-icon
+# 🎨 @elberfeld2/expo-dynamic-app-icon
 
-Easily **change your app icon dynamically** in **Expo SDK 52**!
+Easily **change your app icon dynamically** in **Expo SDK 52 & 53**!
 
-## 🚀 **What's New in v2:**
+## 🚀 **What's New in This Fork:**
 
-✨ **Android icon change without app restart!**
-✨ Seamless icon updates while the app stays running
-✨ Improved stability and performance
+✨ **Full compatibility with Expo SDK 53**
+✨ Fixed image processing issues in the plugin
+✨ Improved TypeScript typing and compatibility
 
 ## 🎁 **Features:**
 
