@@ -1,10 +1,6 @@
 import { Button, Text, View } from "react-native";
 
-import {
-  getAppIcon,
-  IconName,
-  setAppIcon,
-} from "@howincodes/expo-dynamic-app-icon";
+import { getAppIcon, IconName, setAppIcon } from "@g9k/expo-dynamic-app-icon";
 import { useState } from "react";
 
 export default function App() {

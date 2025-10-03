@@ -1,4 +1,4 @@
-# 🎨 @g9kpl/expo-dynamic-app-icon
+# 🎨 @g9k/expo-dynamic-app-icon
 
 Easily **change your app icon dynamically** in **Expo SDK 52 & 53**!
 
@@ -24,7 +24,7 @@ Easily **change your app icon dynamically** in **Expo SDK 52 & 53**!
 ## 📦 Installation
 
 ```sh
-npx expo install @g9kpl/expo-dynamic-app-icon
+npx expo install @g9k/expo-dynamic-app-icon
 ```
 
 ---
@@ -36,7 +36,7 @@ Add the plugin to your `app.json`:
 ```json
 "plugins": [
   [
-    "@g9kpl/expo-dynamic-app-icon",
+    "@g9k/expo-dynamic-app-icon",
     {
       "defaultLight": {
         "ios": "./assets/ios_icon_light.png",
@@ -125,7 +125,7 @@ Then, check if the following lines have been added to `AndroidManifest.xml`. The
 ### **Set App Icon**
 
 ```typescript
-import { setAppIcon } from "@g9kpl/expo-dynamic-app-icon";
+import { setAppIcon } from "@g9k/expo-dynamic-app-icon";
 
 /**
  * Change app icon to 'red'
@@ -163,7 +163,7 @@ setAppIcon(
 ### **Get Current Icon**
 
 ```typescript
-import { getAppIcon } from "@howincodes/expo-dynamic-app-icon";
+import { getAppIcon } from "@g9k/expo-dynamic-app-icon";
 
 // Get the current app icon name
 const icon = getAppIcon();
