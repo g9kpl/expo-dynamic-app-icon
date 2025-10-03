@@ -1,5 +1,5 @@
 {
-  "name": "@elberfeld2/expo-dynamic-app-icon",
+  "name": "@g9kpl/expo-dynamic-app-icon",
   "version": "1.0.0",
   "description": "Programmatically change the app icon in Expo.",
   "main": "build/index.js",
@@ -32,17 +32,19 @@
     "expo-dynamic-app-icon",
     "ExpoDynamicAppIcon"
   ],
-  "repository": "https://github.com/elberfeld2/expo-dynamic-app-icon",
+  "repository": "https://github.com/g9kpl/expo-dynamic-app-icon",
   "bugs": {
-    "url": "https://github.com/elberfeld2/expo-dynamic-app-icon/issues"
+    "url": "https://github.com/g9kpl/expo-dynamic-app-icon/issues"
   },
-  "author": "Elberfeld2 <tu-email@ejemplo.com> (https://github.com/elberfeld2)",
+  "author": "Piotr Grzegorczyk <peter.grzegorczyk@gmail.com> (https://github.com/g9kpl)",
   "contributors": [
+    "Elberfeld2 <tu-email@ejemplo.com> (https://github.com/elberfeld2)",
     "Faris Basha T M <bashahowin@gmail.com> (https://github.com/howincodes)",
+    "Samuel Newman <mozzius@protonmail.com> (https://github.com/mozzius)",
     "outsung <outsung9@gmail.com> (https://github.com/outsung)"
   ],
   "license": "MIT",
-  "homepage": "https://github.com/elberfeld2/expo-dynamic-app-icon#readme",
+  "homepage": "https://github.com/g9kpl/expo-dynamic-app-icon#readme",
   "dependencies": {
     "expo-modules-core": "^2.1.1",
     "@expo/image-utils": "^0.6.3",
