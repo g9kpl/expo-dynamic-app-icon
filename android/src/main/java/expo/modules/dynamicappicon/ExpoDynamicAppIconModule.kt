@@ -28,6 +28,7 @@ class ExpoDynamicAppIconModule : Module() {
           var currentIcon = if (!SharedObject.icon.isEmpty()) SharedObject.icon else context.packageName + ".MainActivity"
 
           if (currentIcon == context.packageName + ".MainActivity") {
+            SharedObject.icon = context.packageName + ".MainActivity"
             return@Function "DEFAULT"
           }
 
