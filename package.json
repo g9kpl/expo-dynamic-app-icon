@@ -1,6 +1,6 @@
 {
-  "name": "@g9kpl/expo-dynamic-app-icon",
-  "version": "1.0.0",
+  "name": "@g9k/expo-dynamic-app-icon",
+  "version": "2.0.5",
   "description": "Programmatically change the app icon in Expo.",
   "main": "build/index.js",
   "types": "build/index.d.ts",
@@ -46,19 +46,22 @@
   "license": "MIT",
   "homepage": "https://github.com/g9kpl/expo-dynamic-app-icon#readme",
   "dependencies": {
-    "expo-modules-core": "^2.1.1",
     "@expo/image-utils": "^0.6.3",
+    "expo-modules-core": "^2.1.1",
     "xcode": "^3.0.1"
   },
   "devDependencies": {
+    "@expo/config": "^12.0.10",
+    "@expo/config-plugins": "^54.0.2",
     "@types/react": "^18.0.25",
     "@types/react-native": "^0.70.6",
-    "expo-module-scripts": "^4.0.2"
+    "expo-module-scripts": "^4.0.2",
+    "typescript": "^5.9.3"
   },
   "peerDependencies": {
-    "expo": "^52 || ^53",
+    "expo": "^52 || ^53 || ^54",
     "react": "*",
     "react-native": "*"
   },
-  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
+  "packageManager": "pnpm@9.12.3"
 }
