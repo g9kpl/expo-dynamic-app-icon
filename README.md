@@ -1,6 +1,20 @@
 # 🎨 @g9k/expo-dynamic-app-icon
 
-Easily **change your app icon dynamically** in **Expo SDK 52 & 53**!
+Easily **change your app icon dynamically** in **Expo SDK 52, 53 & 54**!
+
+## 📑 Table of Contents
+
+- [What's New](#-whats-new-in-this-fork)
+- [Features](#-features)
+- [Requirements](#️-requirements)
+- [Quick Start](#-quick-start)
+- [Installation](#-installation)
+- [Configuration](#-configuration)
+- [Usage](#-usage)
+- [Troubleshooting](#-troubleshooting)
+- [Roadmap](#️-roadmap)
+
+---
 
 ## 🚀 **What's New in This Fork:**
 
@@ -21,6 +35,43 @@ Easily **change your app icon dynamically** in **Expo SDK 52 & 53**!
 
 ---
 
+## ⚙️ Requirements
+
+- **Expo SDK 52, 53 or 54** (SDK 54 support is untested but should work)
+- **Development Client required** - This module uses native code and cannot work with Expo Go
+- **Both iOS and Android** supported
+
+---
+
+## 🚀 Quick Start
+
+```sh
+# 1. Install
+npx expo install @g9k/expo-dynamic-app-icon
+
+# 2. Add icons to your app.json (see Configuration below)
+
+# 3. Generate native files
+expo prebuild
+
+# 4. Build and run
+npx expo run:ios    # or npx expo run:android
+```
+
+Then in your code:
+
+```typescript
+import { setAppIcon, getAppIcon } from "@g9k/expo-dynamic-app-icon";
+
+// Change icon (use the names you configured in app.json)
+setAppIcon("blue");
+
+// Get current icon
+const current = getAppIcon();
+```
+
+---
+
 ## 📦 Installation
 
 ```sh
@@ -29,38 +80,40 @@ npx expo install @g9k/expo-dynamic-app-icon
 
 ---
 
-## 🔧 Setup
+## 🔧 Configuration
 
-Add the plugin to your `app.json`:
+### Step 1: Configure Your Icons
+
+Add the plugin to your `app.json` or `app.config.js`:
 
 ```json
 "plugins": [
   [
     "@g9k/expo-dynamic-app-icon",
     {
-      "defaultLight": {
-        "ios": "./assets/ios_icon_light.png",
+      "blue": {
+        "ios": "./assets/ios_icon_blue.png",
         "android": {
-          "foregroundImage": "./assets/android_icon_light_fg.png",
-          "backgroundColor": "#FFFFFF"
+          "foregroundImage": "./assets/android_icon_blue_fg.png",
+          "backgroundColor": "#0000FF"
         }
       },
-      "defaultDark": {
-        "ios": "./assets/ios_icon_dark.png",
-        "android": {
-          "foregroundImage": "./assets/android_icon_dark_fg.png",
-          "backgroundColor": "#121212"
-        }
-      },
-      "legacyRed": {
+      "red": {
         "ios": "./assets/ios_icon_red.png",
-        "android": "./assets/android_icon_red_legacy.png" // Legacy string format still supported
+        "android": {
+          "foregroundImage": "./assets/android_icon_red_fg.png",
+          "backgroundColor": "#FF0000"
+        }
       },
-      "dynamicTheme": {
+      "purple": {
+        "ios": "./assets/ios_icon_purple.png",
+        "android": "./assets/android_icon_purple.png" // Legacy string format still supported
+      },
+      "summer": {
         "ios": {
-          "light": "./assets/ios_icon_themed_light.png",
-          "dark": "./assets/ios_icon_themed_dark.png",
-          "tinted": "./assets/ios_icon_themed_tinted.png"
+          "light": "./assets/ios_icon_summer_light.png",
+          "dark": "./assets/ios_icon_summer_dark.png",
+          "tinted": "./assets/ios_icon_summer_tinted.png"
         }
         // Android can also use the adaptive format here if desired
       }
@@ -72,27 +125,71 @@ Add the plugin to your `app.json`:
 **Note on Android Adaptive Icons:**
 For Android, you can now provide an object with `foregroundImage` (path to your foreground asset) and `backgroundColor` (hex string) to generate proper adaptive icons. If you provide a direct string path, it will be treated as a legacy icon.
 
+**Icon Name Reference:**
+The icon names you configure here (e.g., `blue`, `red`, `purple`, `summer`) are what you'll pass to `setAppIcon()` in your code.
+
 ---
 
-## 📜 Android Setup
+### Step 2: Prebuild (Generate Native Code)
 
-Run the following command:
+After configuring your icons, you need to generate the native files:
 
 ```sh
 expo prebuild
 ```
 
-Then, check if the following lines have been added to `AndroidManifest.xml`. The `android:icon` and `android:roundIcon` attributes will point to different resources based on your configuration:
+This command will:
 
-**For Adaptive Icons (example: `defaultDark`):**
+- ✅ Generate native iOS and Android projects
+- ✅ Add icon aliases to `AndroidManifest.xml`
+- ✅ Configure iOS project settings
+- ✅ Copy and process your icon assets
+
+**Important:** You must run `expo prebuild` again whenever you:
+
+- Add or remove icon configurations
+- Change icon file paths
+- Update the plugin configuration
+
+---
+
+### Step 3: Build Development Client
+
+Since this module uses native code, you can't use Expo Go. Build a development client:
+
+```sh
+# For iOS
+npx expo run:ios
+
+# For Android
+npx expo run:android
+```
+
+This will:
+
+- Compile the native code
+- Install the app on your device/simulator
+- Start the Metro bundler
+
+---
+
+## 📜 Verifying Native Setup
+
+After running `expo prebuild`, you can verify the setup:
+
+### Android Verification
+
+Check if the following lines have been added to `android/app/src/main/AndroidManifest.xml`. The `android:icon` and `android:roundIcon` attributes will point to different resources based on your configuration:
+
+**For Adaptive Icons (example: `blue`):**
 
 ```xml
 <activity-alias
-  android:name="expo.modules.dynamicappicon.example.MainActivitydefaultDark"
+  android:name="expo.modules.dynamicappicon.example.MainActivityblue"
   android:enabled="false"
   android:exported="true"
-  android:icon="@mipmap/ic_launcher_adaptive_defaultdark"
-  android:roundIcon="@mipmap/ic_launcher_adaptive_defaultdark"
+  android:icon="@mipmap/ic_launcher_adaptive_blue"
+  android:roundIcon="@mipmap/ic_launcher_adaptive_blue"
   android:targetActivity=".MainActivity">
   <intent-filter>
     <action android:name="android.intent.action.MAIN"/>
@@ -101,15 +198,15 @@ Then, check if the following lines have been added to `AndroidManifest.xml`. The
 </activity-alias>
 ```
 
-**For Legacy Icons (example: `legacyRed`):**
+**For Legacy Icons (example: `purple`):**
 
 ```xml
 <activity-alias
-  android:name="expo.modules.dynamicappicon.example.MainActivitylegacyRed"
+  android:name="expo.modules.dynamicappicon.example.MainActivitypurple"
   android:enabled="false"
   android:exported="true"
-  android:icon="@mipmap/legacyred"
-  android:roundIcon="@mipmap/legacyred_round"
+  android:icon="@mipmap/purple"
+  android:roundIcon="@mipmap/purple_round"
   android:targetActivity=".MainActivity">
   <intent-filter>
     <action android:name="android.intent.action.MAIN"/>
@@ -128,7 +225,13 @@ Then, check if the following lines have been added to `AndroidManifest.xml`. The
 import { setAppIcon } from "@g9k/expo-dynamic-app-icon";
 
 /**
- * Change app icon to 'red'
+ * Change app icon to 'blue'
+ * (Use the icon names from your app.json configuration)
+ */
+setAppIcon("blue");
+
+/**
+ * Change to 'red' icon
  */
 setAppIcon("red");
 
@@ -167,7 +270,7 @@ import { getAppIcon } from "@g9k/expo-dynamic-app-icon";
 
 // Get the current app icon name
 const icon = getAppIcon();
-console.log(icon); // "red" (or "DEFAULT" if not changed)
+console.log(icon); // "blue" or "red" or "purple" (or "DEFAULT" if not changed)
 ```
 
 ---
@@ -184,13 +287,116 @@ console.log(icon); // "red" (or "DEFAULT" if not changed)
 - To disable the delay and apply the icon change immediately (with the risk of it running during permission dialogs or other pause events), set:
 
   ```typescript
-  setAppIcon("red", false);
+  setAppIcon("blue", false);
   ```
 
   - On **iOS**, `isInBackground: false` triggers the system alert immediately.
   - On **Android**, it applies the icon change right away without waiting.
 
-## ☕ Support the Original Author
+---
+
+## 🔧 Troubleshooting
+
+### "Module not found" or import errors
+
+**Problem:** Getting errors like `Cannot find module '@g9k/expo-dynamic-app-icon'`
+
+**Solution:**
+
+1. Make sure you installed the package: `npx expo install @g9k/expo-dynamic-app-icon`
+2. Clear cache: `npx expo start --clear`
+3. Rebuild the app: `npx expo run:ios` or `npx expo run:android`
+
+### Icons not changing
+
+**Problem:** `setAppIcon()` returns false or icons don't change
+
+**Solution:**
+
+1. Verify you ran `expo prebuild` after configuring icons
+2. Check that icon names match your `app.json` configuration exactly (case-sensitive)
+3. Ensure icon assets exist at the paths you specified
+4. Rebuild your app: `npx expo run:ios` or `npx expo run:android`
+5. Check native logs for errors:
+   - iOS: Open Xcode logs
+   - Android: Run `npx react-native log-android`
+
+### "This module uses native code and cannot work with Expo Go"
+
+**Problem:** App crashes or module doesn't work in Expo Go
+
+**Solution:**
+This is expected behavior. You **must** use a development client:
+
+```sh
+npx expo run:ios   # For iOS
+npx expo run:android   # For Android
+```
+
+### Icons not appearing after prebuild
+
+**Problem:** Ran prebuild but icons missing in native projects
+
+**Solution:**
+
+1. Check that icon paths in `app.json` are correct and files exist
+2. Delete `ios/` and `android/` folders
+3. Run `expo prebuild --clean`
+4. Rebuild: `npx expo run:ios` or `npx expo run:android`
+
+### Android icon changes but shows wrong icon temporarily
+
+**Problem:** Icon briefly shows old icon before changing
+
+**Solution:**
+This is an Android limitation. The system caches launcher icons. Try:
+
+1. Clear launcher cache (varies by device)
+2. Restart device
+3. Uninstall and reinstall the app
+
+### iOS shows alert popup when changing icon
+
+**Problem:** iOS displays a system alert when icon changes
+
+**Solution:**
+This is iOS default behavior when changing icons immediately. To change in background:
+
+```typescript
+setAppIcon("blue", true); // true = silent background change (default)
+```
+
+### Configuration changes not taking effect
+
+**Problem:** Updated `app.json` but changes don't appear
+
+**Solution:**
+
+1. Run `expo prebuild` again (required after ANY config changes)
+2. Rebuild the app: `npx expo run:ios` or `npx expo run:android`
+3. Don't just refresh - native changes require full rebuild
+
+---
+
+## 🗺️ Roadmap
+
+Help us improve this package! Here's what's on the horizon:
+
+- [ ] **Verify compatibility with Expo SDK 54** - Test and confirm the package works with SDK 54
+- [ ] **Improve documentation** - Add video tutorial or animated examples
+- [ ] **Enhanced TypeScript support** - Better type definitions for icon configurations
+- [ ] **Testing suite** - Add automated tests for iOS and Android
+- [ ] **Performance optimization** - Reduce icon switching latency on Android
+
+Want to contribute? Feel free to:
+
+- Open an issue for bugs or feature requests
+- Submit a PR for any of the above items
+- Share your use cases and feedback
+
+---
+
+## ☕ Shoutout to previous contributors
 
 A huge shoutout to:
 
